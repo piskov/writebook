@@ -105,7 +105,7 @@ module Leaf::Searchable
     class_methods do
       private
         def remove_invalid_search_characters(terms)
-          terms.gsub(/[^\w"]/, " ")
+          terms.gsub(/[^[:word:]"]/, " ")
         end
 
         # After stripping the characters FTS5 can't tokenize, the remaining
@@ -120,7 +120,7 @@ module Leaf::Searchable
         # opening one — which would shift the boundaries of a following phrase
         # and split it into separate word matches. Empty tokens are then dropped.
         def quote_query_tokens(terms)
-          terms.scan(/"[^"]*"|\w+/)
+          terms.scan(/"[^"]*"|[[:word:]]+/)
             .filter_map { |token| token.delete('"').presence }
             .map { |token| %("#{token}") }
             .join(" ")

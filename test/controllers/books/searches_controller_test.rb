@@ -14,6 +14,19 @@ class Books::SearchesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a", text: /Thanks for reading/i
   end
 
+  test "create finds and highlights Cyrillic titles and bodies" do
+    leaf = leaves(:welcome_page)
+    leaf.update! title: "Руководство"
+    pages(:welcome).update! body: "Привет мир"
+    leaf.reindex
+
+    post book_search_path(books(:handbook)), params: { search: "РУКОВОДСТВО ПРИВЕТ" }
+
+    assert_response :success
+    assert_in_body "<mark>Руководство</mark>"
+    assert_in_body "<mark>Привет</mark>"
+  end
+
   test "create allows searching published books without being logged in" do
     sign_out
     books(:handbook).update!(published: true)

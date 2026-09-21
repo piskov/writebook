@@ -10,6 +10,70 @@ class Leaf::SearchableTest < ActiveSupport::TestCase
     assert_includes leaves, leaves(:welcome_page)
   end
 
+  test "query preparation preserves Unicode words and phrases" do
+    {
+      "привет" => '"привет"',
+      "ПРИВЕТ" => '"ПРИВЕТ"',
+      "hello, мир!" => '"hello" "мир"',
+      '"привет мир"' => '"привет мир"',
+      "Ελληνικά café 中文测试" => '"Ελληνικά" "café" "中文测试"',
+      "cafe\u0301" => "\"cafe\u0301\""
+    }.each do |query, expected|
+      assert_equal expected, Leaf.sanitize_query_syntax(query), query
+    end
+  end
+
+  test "Cyrillic titles and bodies are searchable with Unicode case folding" do
+    leaf = leaves(:welcome_page)
+    leaf.update! title: "Руководство"
+    pages(:welcome).update! body: "Привет мир"
+    leaf.reindex
+
+    assert_includes Leaf.search("РУКОВОДСТВО"), leaf
+    assert_includes Leaf.search("ПРИВЕТ"), leaf
+    result = Leaf.search("руководство привет").find(leaf.id)
+    assert_equal "<mark>Руководство</mark>", result.title_match
+    assert_includes result.content_match, "<mark>Привет</mark>"
+    assert_equal [ "Привет" ], leaf.matches_for_highlight("ПРИВЕТ")
+  end
+
+  test "mixed language queries require all terms" do
+    pages(:welcome).update! body: "hello мир"
+    sections(:welcome).update! body: "hello world"
+    leaves(:welcome_section).reindex
+
+    results = Leaf.search("hello мир")
+    assert_includes results, leaves(:welcome_page)
+    assert_not_includes results, leaves(:welcome_section)
+    assert_empty Leaf.search("hello отсутствует")
+  end
+
+  test "search accepts words from multiple scripts" do
+    pages(:welcome).update! body: "Ελληνικά café 中文测试"
+
+    %w[Ελληνικά café 中文测试].each do |query|
+      assert_includes Leaf.search(query), leaves(:welcome_page), query
+    end
+  end
+
+  test "Cyrillic quoted phrases require adjacent words even after empty quotes" do
+    pages(:welcome).update! body: "привет мир"
+    sections(:welcome).update! body: "привет прекрасный мир"
+    leaves(:welcome_section).reindex
+
+    [ '"привет мир"', '"" "привет мир"' ].each do |query|
+      results = Leaf.search(query)
+      assert_includes results, leaves(:welcome_page)
+      assert_not_includes results, leaves(:welcome_section)
+    end
+  end
+
+  test "search retains English stemming" do
+    pages(:welcome).update! body: "correcting"
+
+    assert_includes Leaf.search("corrected"), leaves(:welcome_page)
+  end
+
   test "updating a leaf updates the search index" do
     pages(:welcome).update! body: "sausages"
 

@@ -3,6 +3,16 @@ require "test_helper"
 class SearchesHelperTest < ActionView::TestCase
   include PagesHelper
 
+  test "highlight_searched_content highlights whole Cyrillic words" do
+    leaf = Struct.new(:terms) do
+      def matches_for_highlight(_query) = terms
+    end.new([ "мир" ])
+
+    result = highlight_searched_content(leaf, "мир, мирный всемир мир", "мир")
+
+    assert_equal "<mark>мир</mark>, мирный всемир <mark>мир</mark>", result
+  end
+
   test "sanitize_search_result preserves mark tags" do
     assert_equal "<mark>findme</mark> text", sanitize_search_result("<mark>findme</mark> text")
   end

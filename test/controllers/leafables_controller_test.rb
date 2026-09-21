@@ -30,6 +30,19 @@ class LeafablesControllerTest < ActionDispatch::IntegrationTest
     assert_select "mark", "great"
   end
 
+  test "show highlights whole Cyrillic words from an uppercase query" do
+    pages(:welcome).update! body: "мир, мирный всемир мир"
+    leaves(:welcome_page).reindex
+
+    get leafable_slug_path(leaves(:welcome_page)), params: { search: "МИР" }
+
+    assert_response :success
+    assert_in_body "<mark>мир</mark>"
+    assert_in_body "мирный всемир"
+    assert_not_in_body "<mark>мир</mark>ный"
+    assert_not_in_body "все<mark>мир</mark>"
+  end
+
   test "show does not raise when the search query sanitizes to empty" do
     sign_out
     books(:handbook).update!(published: true)
