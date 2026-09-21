@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -eu
+cd "$(dirname "$0")/.."
+${CC:-cc} -O2 -Wall -Wextra -Werror -fPIC -shared \
+  lib/sqlite/writebook_search.c -lstemmer -o lib/sqlite/writebook_search.so

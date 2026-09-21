@@ -12,6 +12,9 @@ announce "Installing dependencies"
 gem install bundler --conservative
 bundle check || bundle install
 
+announce "Building search extension (requires a C compiler, libsqlite3-dev and libstemmer-dev)"
+sh bin/build-search-extension
+
 announce "Preparing database"
 if [[ $* == *--reset* ]]; then
   rails db:reset

@@ -18,7 +18,7 @@ class Books::SearchesControllerTest < ActionDispatch::IntegrationTest
     leaf = leaves(:welcome_page)
     leaf.update! title: "Руководство"
     pages(:welcome).update! body: "Привет мир"
-    leaf.reindex
+    leaf.reload.reindex
 
     post book_search_path(books(:handbook)), params: { search: "РУКОВОДСТВО ПРИВЕТ" }
 
@@ -38,6 +38,29 @@ class Books::SearchesControllerTest < ActionDispatch::IntegrationTest
 
     post book_search_url(books(:handbook)), params: { search: "Thanks" }
     assert_response :not_found
+  end
+
+  test "bilingual results highlight original forms and respect book and trash scopes" do
+    sign_in :david
+    leaf = leaves(:welcome_page)
+    leaf.update! title: "Лошади"
+    pages(:welcome).update! body: "running лошадью"
+    leaf.reload.reindex
+
+    post book_search_path(books(:handbook)), params: { search: "runs лошадь" }
+    assert_response :success
+    assert_in_body "<mark>Лошади</mark>"
+    assert_in_body "<mark>running</mark>"
+    assert_in_body "<mark>лошадью</mark>"
+
+    post book_search_path(books(:manual)), params: { search: "runs лошадь" }
+    assert_response :success
+    assert_not_in_body "<mark>лошадью</mark>"
+
+    leaf.trashed!
+    post book_search_path(books(:handbook)), params: { search: "runs лошадь" }
+    assert_response :success
+    assert_not_in_body "<mark>лошадью</mark>"
   end
 
   test "create shows when there are no matches" do

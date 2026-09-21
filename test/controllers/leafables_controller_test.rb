@@ -30,6 +30,18 @@ class LeafablesControllerTest < ActionDispatch::IntegrationTest
     assert_select "mark", "great"
   end
 
+  test "show highlights original English and Russian forms" do
+    pages(:welcome).update! body: "running лошади лошадью"
+    leaves(:welcome_page).reindex
+
+    get leafable_slug_path(leaves(:welcome_page)), params: { search: "runs лошадь" }
+
+    assert_response :success
+    assert_in_body "<mark>running</mark>"
+    assert_in_body "<mark>лошади</mark>"
+    assert_in_body "<mark>лошадью</mark>"
+  end
+
   test "show highlights whole Cyrillic words from an uppercase query" do
     pages(:welcome).update! body: "мир, мирный всемир мир"
     leaves(:welcome_page).reindex

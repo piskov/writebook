@@ -31,6 +31,9 @@
 
 /public/assets
 
+# Built for the host/container architecture.
+/lib/sqlite/*.so
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 

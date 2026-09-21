@@ -19,7 +19,7 @@ FROM --platform=$TARGETPLATFORM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev libvips pkg-config libsqlite3-dev libstemmer-dev
 
 # Install application gems
 COPY Gemfile Gemfile.lock .ruby-version ./
@@ -28,6 +28,8 @@ RUN bundle install && \
 
 # Copy application code
 COPY . .
+
+RUN sh bin/build-search-extension
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
@@ -38,7 +40,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libsqlite3-0 libvips redis && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libsqlite3-0 libstemmer0d libvips redis && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application

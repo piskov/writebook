@@ -53,3 +53,6 @@
 
 # Ignore test files
 /test/
+
+# Always compile the search extension for the image's architecture.
+/lib/sqlite/*.so

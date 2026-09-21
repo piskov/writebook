@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_09_222120) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_21_090000) do
   create_table "accesses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "book_id", null: false
@@ -160,5 +160,5 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_09_222120) do
 
   # Virtual tables defined in this database.
   # Note that virtual tables may not work with other database engines. Be careful if changing database.
-  create_virtual_table "leaf_search_index", "fts5", ["title", "content", "tokenize='porter'"]
+  create_virtual_table "leaf_search_index", "fts5", ["title", "content", "tokenize='writebook_en_ru_v1'"]
 end

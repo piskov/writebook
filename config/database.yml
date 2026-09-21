@@ -1,5 +1,7 @@
 default: &default
   adapter: sqlite3
+  extensions:
+    - <%= Rails.root.join("lib/sqlite/writebook_search.so") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
   timeout: 100
   default_transaction_mode: immediate

@@ -27,7 +27,7 @@ class Leaf::SearchableTest < ActiveSupport::TestCase
     leaf = leaves(:welcome_page)
     leaf.update! title: "Руководство"
     pages(:welcome).update! body: "Привет мир"
-    leaf.reindex
+    leaf.reload.reindex
 
     assert_includes Leaf.search("РУКОВОДСТВО"), leaf
     assert_includes Leaf.search("ПРИВЕТ"), leaf
@@ -72,6 +72,58 @@ class Leaf::SearchableTest < ActiveSupport::TestCase
     pages(:welcome).update! body: "correcting"
 
     assert_includes Leaf.search("corrected"), leaves(:welcome_page)
+  end
+
+  test "Russian noun forms match in both directions and highlight original text" do
+    leaf = leaves(:welcome_page)
+    %w[лошадь лошади лошадью].each do |word|
+      leaf.update! title: word
+      pages(:welcome).update! body: "Здесь #{word}."
+      leaf.reload.reindex
+
+      %w[лошадь ЛОШАДИ лошадью].each do |query|
+        result = Leaf.search(query).find(leaf.id)
+        assert_equal "<mark>#{word}</mark>", result.title_match
+        assert_includes result.content_match, "<mark>#{word}</mark>"
+        assert_equal [ word ], leaf.matches_for_highlight(query)
+      end
+    end
+  end
+
+  test "English and Russian stems work together in queries and phrases" do
+    pages(:welcome).update! body: "running лошади"
+    sections(:welcome).update! body: "running красивые лошади"
+    leaves(:welcome_section).reindex
+
+    assert_includes Leaf.search("runs лошадь"), leaves(:welcome_page)
+    assert_includes Leaf.search("runs лошадь"), leaves(:welcome_section)
+    assert_includes Leaf.search('"runs лошадь"'), leaves(:welcome_page)
+    assert_not_includes Leaf.search('"runs лошадь"'), leaves(:welcome_section)
+    assert_empty Leaf.search("swimming лошадь")
+  end
+
+  test "bilingual index follows edits and deletes" do
+    leaf = leaves(:welcome_page)
+    pages(:welcome).update! body: "лошади"
+    assert_includes Leaf.search("лошадь"), leaf
+
+    pages(:welcome).update! body: "книги"
+    assert_not_includes Leaf.search("лошадь"), leaf
+    assert_includes Leaf.search("книга"), leaf
+
+    leaf.destroy!
+    assert_empty Leaf.search("книга")
+  end
+
+  test "other scripts and mixed identifiers are not Russian or English stemmed" do
+    pages(:welcome).update! body: "running123 лошади42 testлошади Ελληνικά 中文测试"
+
+    %w[running123 лошади42 testлошади Ελληνικά 中文测试].each do |query|
+      assert_includes Leaf.search(query), leaves(:welcome_page)
+    end
+    assert_empty Leaf.search("run123")
+    assert_empty Leaf.search("лошадь42")
+    assert_empty Leaf.search("testлошадь")
   end
 
   test "updating a leaf updates the search index" do

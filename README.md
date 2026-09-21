@@ -6,6 +6,10 @@ Writebook is an easy-to-use application for publishing content on the web.
 Content is authored in Markdown, and books can contain picture pages, chapters, and title pages.
 Books can be published privately or publicly, and are searchable.
 
+Search supports English and Russian word forms together. See
+[bilingual search](docs/bilingual-search.md) for automatic upgrade, rollback,
+and local development instructions.
+
 ## How to get Writebook
 
 Writebook is distributed as a Docker image.
