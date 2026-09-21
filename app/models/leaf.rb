@@ -12,6 +12,6 @@ class Leaf < ApplicationRecord
   scope :with_leafables, -> { includes(:leafable) }
 
   def slug
-    title.parameterize.presence || "-"
+    TitleSlug.generate(title)
   end
 end

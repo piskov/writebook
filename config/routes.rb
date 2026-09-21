@@ -36,8 +36,10 @@ Rails.application.routes.draw do
     resources :pages
   end
 
-  get "/:id/:slug", to: "books#show", constraints: { id: /\d+/ }, as: :slugged_book
+  get "/:id(/:slug)", to: "books#show", constraints: { id: /\d+/ }, as: :slugged_book
   get "/:book_id/:book_slug/:id/:slug", to: "leafables#show", constraints: { book_id: /\d+/, id: /\d+/ }, as: :slugged_leafable
+  # Older Cyrillic book titles generated an empty book slug.
+  get "/:book_id/:id/:slug", to: "leafables#show", constraints: { book_id: /\d+/, id: /\d+/ }
 
   direct :book_slug do |book, options|
     route_for :slugged_book, book, book.slug, options

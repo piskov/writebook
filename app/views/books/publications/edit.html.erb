@@ -16,8 +16,8 @@
                   autofocus: true,
                   class: class_names("input"),
                   required: true,
-                  pattern: "^[\\-A-Za-z0-9]+$",
-                  title: "Используйте только английские буквы, цифры и дефисы" %>
+                  pattern: "[\\p{L}\\p{M}\\p{N}\\-]+",
+                  title: "Используйте буквы, цифры и дефисы" %>
           </span>
         </label>
 
