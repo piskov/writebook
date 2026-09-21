@@ -93,12 +93,12 @@ class LeafablesControllerTest < ActionDispatch::IntegrationTest
     assert_select "mark", text: /alpha\(beta/
   end
 
-  test "show does not allow public access to an unpublished book" do
+  test "show redirects anonymous readers of an unpublished book to login" do
     sign_out
 
     get leafable_slug_path(leaves(:welcome_page))
 
-    assert_response :not_found
+    assert_redirected_to new_session_path
   end
 
   test "show includes link to markdown format" do
