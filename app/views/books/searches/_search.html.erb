@@ -1,14 +1,14 @@
 <div data-controller="dialog" data-action="keydown.ctrl+space@document->dialog#open keydown.esc->dialog#close">
-  <button data-action="click->dialog#open" class="btn" title="Search (control + space)">
+  <button data-action="click->dialog#open" class="btn" title="Поиск (Ctrl + пробел)">
     <%= image_tag "search.svg", aria: { hidden: true }, size: 24 %>
-    <span class="for-screen-reader">Search</span>
+    <span class="for-screen-reader">Поиск</span>
   </button>
 
   <dialog data-dialog-target="dialog" class="search__modal dialog panel shadow">
     <form method="dialog">
-      <button class="btn panel__close" title="Close (esc)">
+      <button class="btn panel__close" title="Закрыть (Esc)">
         <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">Close</span>
+        <span class="for-screen-reader">Закрыть</span>
       </button>
     </form>
 
@@ -16,12 +16,12 @@
       <label class="flex align-center gap full-width">
         <div class="flex align-center gap input input--actor">
           <%= image_tag "search.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-          <%= search_field_tag :search, nil, form: "search_form", class: "search__input input full-width txt-large", autocomplete: "off", autofocus: true, placeholder: "Find in this book…" %>
+          <%= search_field_tag :search, nil, form: "search_form", class: "search__input input full-width txt-large", autocomplete: "off", autofocus: true, placeholder: "Найти в этой книге…" %>
         </div>
 
-        <button class="btn btn--reversed txt-medium" title="Submit search (enter)" form="search_form" type="submit" tabindex="-1">
+        <button class="btn btn--reversed txt-medium" title="Найти (Enter)" form="search_form" type="submit" tabindex="-1">
           <%= image_tag "arrow-right.svg", aria: { hidden: true }, size: 24 %>
-          <span class="for-screen-reader">Submit search</span>
+          <span class="for-screen-reader">Найти</span>
         </button>
       </label>
     </div>

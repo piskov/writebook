@@ -6,9 +6,9 @@
 
     <span class="flex-item-justify-end">
       <%= form_with url: leafable_path(leaf, format: :html), class: "flex align-center gap-half", method: :delete do |form| %>
-        <%= form.button class: "btn btn--negative txt-small min-width", data: { turbo_confirm: "Are you sure you want to delete this page?" } do %>
+        <%= form.button class: "btn btn--negative txt-small min-width", data: { turbo_confirm: "Удалить эту страницу?" } do %>
           <%= image_tag "minus.svg", aria: { hidden: true }, size: 24 %>
-          <span class="for-screen-reader">Delete <%= @leaf.title %></span>
+          <span class="for-screen-reader">Удалить <%= @leaf.title %></span>
         <% end %>
       <% end %>
     </span>

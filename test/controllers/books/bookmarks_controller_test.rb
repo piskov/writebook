@@ -11,7 +11,7 @@ class Books::BookmarksControllerTest < ActionDispatch::IntegrationTest
     get book_bookmark_url(books(:handbook))
 
     assert_response :success
-    assert_select "a", /Resume reading/
+    assert_select "a", /продолжить чтение/
   end
 
   test "show includes a link to start reading if the last read leaf has been trashed" do
@@ -21,13 +21,13 @@ class Books::BookmarksControllerTest < ActionDispatch::IntegrationTest
     get book_bookmark_url(books(:handbook))
 
     assert_response :success
-    assert_select "a", /Start reading/
+    assert_select "a", /Начать чтение/
   end
 
   test "show includes a link to start reading if no reading progress has been recorded" do
     get book_bookmark_url(books(:handbook))
 
     assert_response :success
-    assert_select "a", /Start reading/
+    assert_select "a", /Начать чтение/
   end
 end

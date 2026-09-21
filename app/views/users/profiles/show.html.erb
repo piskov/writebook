@@ -4,15 +4,15 @@
   <nav>
     <%= link_to users_path, class: "btn" do %>
       <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Go back</span>
+      <span class="for-screen-reader">Назад</span>
     <% end %>
 
     <div class="breadcrumbs">
       <%= render "books/index_link" %>
       <span class="flex-item-no-shrink">▸</span>
       <%= link_to users_path, class: "btn borderless txt-small flex-item-no-shrink" do %>
-        <%= image_tag "people.svg", aria: { label: "People" }, size: 19, class: "colorize--black", alt: "People" %>
-        <span class="for-screen-reader">Manage people</span>
+        <%= image_tag "people.svg", aria: { label: "Участники" }, size: 19, class: "colorize--black", alt: "Участники" %>
+        <span class="for-screen-reader">Управление участниками</span>
       <% end %>
       <span class="flex-item-no-shrink">▸</span>
       <%= @user.name %>

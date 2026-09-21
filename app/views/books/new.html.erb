@@ -1,10 +1,10 @@
-<% content_for(:title) { "Create a new book" } %>
+<% content_for(:title) { "Создать новую книгу" } %>
 
 <% content_for :header do %>
   <nav>
     <%= link_to root_path, class: "btn flex-item-justify-start" do %>
       <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Cancel and go back</span>
+      <span class="for-screen-reader">Отменить и вернуться</span>
     <% end %>
   </nav>
 <% end %>
@@ -13,7 +13,7 @@
 
 <% content_for :footer do %>
   <nav class="new-book-btn flex justify-center pad">
-    <button type="submit" form="book-editor", class="btn btn--reversed txt-medium--responsive" aria-label="Create book" title="Create book">
+    <button type="submit" form="book-editor", class="btn btn--reversed txt-medium--responsive" aria-label="Создать книгу" title="Создать книгу">
       <%= image_tag "arrow-right.svg", aria: { hidden: true }, size: 24 %>
     </button>
   </nav>

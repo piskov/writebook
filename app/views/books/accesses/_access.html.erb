@@ -10,13 +10,13 @@
   <fieldset class="flex align-center gap borderless unpad margin-none">
     <legend class="for-screen-reader"><%= user.name %></legend>
     <label class="btn btn--small flex-item-no-shrink">
-      <%= check_box_tag "editor_ids[]", user.id, book.editable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? || user.can_administer?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependant" }, aria: { label: "Role: Writer" } %>
+      <%= check_box_tag "editor_ids[]", user.id, book.editable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? || user.can_administer?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependant" }, aria: { label: "Роль: редактор" } %>
       <%= image_tag "write.svg", size: 24, aria: { hidden: "true" } %>
       <span class="for-screen-reader"></span>
     </label>
 
     <label class="btn btn--small flex-item-no-shrink book-access__reader">
-      <%= check_box_tag "reader_ids[]", user.id, book.accessable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? || user.can_administer?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependee" }, aria: { label: "Role: Reader" } %>
+      <%= check_box_tag "reader_ids[]", user.id, book.accessable?(user: user) || user == creating_user || user.can_administer?, id: nil, disabled: user.current? || user.can_administer?, data: { action: "dependent-checkbox#input", dependent_checkbox_target: "dependee" }, aria: { label: "Роль: читатель" } %>
       <%= image_tag "eye.svg", size: 24, aria: { hidden: "true" } %>
       <span class="for-screen-reader"></span>
     </label>

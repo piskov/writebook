@@ -1,7 +1,8 @@
 module PagesHelper
   def word_count(content)
     return if content.blank?
-    pluralize number_with_delimiter(content.split.size), "word"
+    count = content.split.size
+    t("word_count", count: count, formatted_count: number_with_delimiter(count))
   end
 
   def page_title(leaf, book)

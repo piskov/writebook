@@ -67,14 +67,14 @@ class Books::SearchesControllerTest < ActionDispatch::IntegrationTest
     post book_search_url(books(:handbook)), params: { search: "the invisible man" }
 
     assert_response :success
-    assert_select "p", text: /no matches/i
+    assert_select "p", text: /Ничего не найдено/i
   end
 
   test "create shows no matches when the search has only ignored characters" do
     post book_search_url(books(:handbook)), params: { search: "^$" }
 
     assert_response :success
-    assert_select "p", text: /no matches/i
+    assert_select "p", text: /Ничего не найдено/i
   end
 
   test "create shows no matches when the search uses FTS5 operator syntax" do
@@ -98,7 +98,7 @@ class Books::SearchesControllerTest < ActionDispatch::IntegrationTest
     post book_search_url(books(:handbook)), params: { search: "Thanks" }
 
     assert_response :success
-    assert_select "p", text: /no matches/i
+    assert_select "p", text: /Ничего не найдено/i
   end
 
   test "search results strip dangerous tags from section body" do

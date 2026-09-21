@@ -1,4 +1,4 @@
-<% content_for(:title) { "Edit #{ @picture.title }" } %>
+<% content_for(:title) { "Редактирование: #{ @picture.title }" } %>
 
 <% content_for :header do %>
   <%= render "leafables/edit_header", leaf: @leaf, book: @book %>
@@ -12,7 +12,7 @@
 
     <button type="submit" form="leafable-editor" class="btn flex page-toolbar__save flex-item-justify-end flex-item-no-shrink txt-small">
       <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Save</span>
+      <span class="for-screen-reader">Сохранить</span>
     </button>
   </div>
 <% end %>

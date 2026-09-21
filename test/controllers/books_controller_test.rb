@@ -5,6 +5,27 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in :kevin
   end
 
+  test "editor interface is Russian and multilingual guidance includes Russian" do
+    get book_slug_path(books(:handbook))
+    assert_response :success
+    assert_select "html[lang=ru]"
+    assert_in_body "Оглавление"
+    assert_in_body "Настройки книги"
+    assert_in_body "Выберите тип страницы, чтобы начать"
+    assert_in_body "Pick a page type to get started"
+    assert_not_in_body "Edit book settings"
+  end
+
+  test "public reader interface is Russian and preserves book content" do
+    books(:handbook).update!(published: true)
+    sign_out
+    get book_slug_path(books(:handbook))
+    assert_response :success
+    assert_in_body "Оглавление"
+    assert_in_body "Handbook"
+    assert_not_in_body "Page view"
+  end
+
   test "index lists the current user's books" do
     get root_url
 

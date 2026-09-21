@@ -18,7 +18,7 @@
   <nav class="book__navbar">
     <%= link_to root_path, class: "btn" do %>
       <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Go back</span>
+      <span class="for-screen-reader">Назад</span>
     <% end %>
 
     <span class="btn btn--placeholder placeholder-start" aria-hidden="true"></span>
@@ -35,7 +35,7 @@
 
     <button class="btn fullscreen" data-action="fullscreen#toggle" data-fullscreen-target="button">
       <%= image_tag "expand.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Enter fullscreen</span>
+      <span class="for-screen-reader">На весь экран</span>
     </button>
 
     <%= render "books/searches/search", book: @book %>
@@ -43,7 +43,7 @@
     <% if @book.editable? %>
       <%= link_to edit_book_path(@book), class: "btn settings" do %>
         <%= image_tag "settings.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">Edit book settings</span>
+        <span class="for-screen-reader">Настройки книги</span>
       <% end %>
     <% end %>
   </nav>
@@ -54,11 +54,11 @@
     <div class="book__sidebar <%= "theme--#{@book&.theme}" unless @book.cover.attached? %>">
       <% if @book.cover.attached? %>
         <%= link_to rails_blob_path(@book.cover, disposition: "attachment", only_path: true), data: { action: "lightbox#open:prevent", lightbox_target: "image", lightbox_url_value: rails_blob_path(@book.cover, disposition: "attachment", only_path: true) } do %>
-          <%= image_tag @book.cover, alt: "Cover for #{ @book.title }", class: "book__cover margin-block-none center" %>
+          <%= image_tag @book.cover, alt: "Обложка книги #{ @book.title }", class: "book__cover margin-block-none center" %>
         <% end %>
       <% else %>
         <span class="book__cover-wrapper">
-          <%= image_tag "empty-cover.png", alt: "Book cover", class: "book__cover margin-block-none center" %>
+          <%= image_tag "empty-cover.png", alt: "Обложка книги", class: "book__cover margin-block-none center" %>
           <span class="book__title overflow-line-clamp pad txt-align-start txt-tight-lines"" style="--lines: 6" aria-hidden="true"><%= @book.title %></span>
         </span>
       <% end %>
@@ -84,13 +84,13 @@
       <label class="btn txt-medium disable-when-empty">
         <input type="radio" name="view" id="toc-list" value="list" checked="checked" data-toc-view-target="switch" data-toc-view-type-value="list" data-action="toc-view#saveViewPref">
         <%= image_tag "view-list.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">List view</span>
+        <span class="for-screen-reader">Оглавление</span>
       </label>
 
       <label class="btn txt-medium flex-item-justify-start disable-when-empty">
         <input type="radio" name="view" id="toc-grid" value="grid" data-toc-view-target="switch" data-toc-view-type-value="grid" data-action="toc-view#saveViewPref">
         <%= image_tag "view-grid.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">Page view</span>
+        <span class="for-screen-reader">Сетка страниц</span>
       </label>
 
       <% if @book.editable? %>
@@ -103,6 +103,7 @@
       <% if @book.editable? %>
         <div class="toc__blank-slate align-center justify-start">
           <%= image_tag "blank-slate-arrows.svg", aria: { hidden: true }, size: 60, class: "colorize--black" %>
+          <span class="flex align-center gap-half"><span>🇷🇺</span> <span>Выберите тип страницы, чтобы начать</span></span>
           <span class="flex align-center gap-half"><span>🇺🇸</span> <span>Pick a page type to get started</span></span>
           <span class="flex align-center gap-half"><span>🇪🇸</span> <span>Elige un tipo de página para comenzar</span></span>
           <span class="flex align-center gap-half"><span>🇫🇷</span> <span>Choisissez un type de page pour commencer</span></span>
@@ -122,13 +123,4 @@
       <div data-arrangement-target="dragImage" class="arrangement-drag-image"></div>
     </div>
   <% end %>
-<% end %>
-
-<% content_for :footer do %>
-  <nav class="book__nav flex align-center justify-center">
-    <a href="https://once.com/writebook" class="product__wordmark btn btn--plain txt-medium" target="_blank">
-      <%= image_tag "writebook-icon.svg", aria: { hidden: true }, size: 24 %>
-      <span>Made with Writebook</span>
-    </a>
-  </nav>
 <% end %>

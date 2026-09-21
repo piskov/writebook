@@ -1,7 +1,7 @@
 <%= turbo_frame_tag dom_id(@book, :bookmark) do %>
   <% if @leaf %>
     <%= link_to book_slug_path(@book, anchor: dom_id(@leaf)), class: "bookmark__link" do %>
-      <span class="for-screen-reader">Bookmark: Resume reading <%= @book.title %></span>
+      <span class="for-screen-reader">Закладка: продолжить чтение <%= @book.title %></span>
     <% end %>
 
     <%= tag.span class: "bookmark", style: "--progress: #{ @leaf.position_as_percentage }%" do %>
@@ -15,7 +15,7 @@
     <% end %>
   <% else %>
     <%= link_to book_slug_path(@book), class: "bookmark__link" do %>
-      <span class="for-screen-reader">Start reading <%= @book.title %></span>
+      <span class="for-screen-reader">Начать чтение <%= @book.title %></span>
     <% end %>
   <% end %>
 <% end %>

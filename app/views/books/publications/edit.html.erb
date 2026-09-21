@@ -8,7 +8,7 @@
 
         <label class="flex flex-column gap full-width txt-align-center">
           <div id="public_link_label" class="flex align-center gap justify-center">
-            <strong>Edit publication link</strong>
+            <strong>Изменить ссылку на публикацию</strong>
           </div>
           <span class="input input--actor flex align-center fill-white">
             <%= "#{request.host}/#{@book.id}/" %>
@@ -17,19 +17,19 @@
                   class: class_names("input"),
                   required: true,
                   pattern: "^[\\-A-Za-z0-9]+$",
-                  title: "Enter letters, numbers, or hyphens only" %>
+                  title: "Используйте только английские буквы, цифры и дефисы" %>
           </span>
         </label>
 
         <div class="flex align-center gap margin-inline margin-block-start">
           <button type="submit" class="btn btn--positive flex-item-justify-end">
             <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
-            <span class="for-screen-reader">Save</span>
+            <span class="for-screen-reader">Сохранить</span>
           </button>
 
           <%= link_to book_slug_path(@book), class: "btn flex-item-justify-start" do %>
             <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
-            <span class="for-screen-reader">Cancel</span>
+            <span class="for-screen-reader">Отмена</span>
           <% end %>
         </div>
       <% end %>

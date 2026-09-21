@@ -1,41 +1,41 @@
 <%= house_toolbar id: "house_toolbar" do %>
-  <%= house_toolbar_button "bold" do %>
+  <%= house_toolbar_button "bold", title: "Жирный" do %>
     <%= image_tag "text-bold.svg", aria: { hidden: "true" }, size: "16", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: bold</span>
+    <span class="for-screen-reader">Жирный</span>
   <% end %>
 
-  <%= house_toolbar_button "italic" do %>
+  <%= house_toolbar_button "italic", title: "Курсив" do %>
     <%= image_tag "text-italic.svg", aria: { hidden: "true" }, size: "16", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: italic</span>
+    <span class="for-screen-reader">Курсив</span>
   <% end %>
 
-  <%= house_toolbar_button "quote" do %>
+  <%= house_toolbar_button "quote", title: "Цитата" do %>
     <%= image_tag "text-quote.svg", aria: { hidden: "true" }, size: "18", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: quote</span>
+    <span class="for-screen-reader">Цитата</span>
   <% end %>
 
-  <%= house_toolbar_button "code" do %>
+  <%= house_toolbar_button "code", title: "Код" do %>
     <%= image_tag "text-code.svg", aria: { hidden: "true" }, size: "18", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: code</span>
+    <span class="for-screen-reader">Код</span>
   <% end %>
 
-  <%= house_toolbar_button "link" do %>
+  <%= house_toolbar_button "link", title: "Ссылка" do %>
     <%= image_tag "text-link.svg", aria: { hidden: "true" }, size: "18", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: link</span>
+    <span class="for-screen-reader">Ссылка</span>
   <% end %>
 
-  <%= house_toolbar_button "bulletList" do %>
+  <%= house_toolbar_button "bulletList", title: "Маркированный список" do %>
     <%= image_tag "text-bullets.svg", aria: { hidden: "true" }, size: "18", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: bulleted list</span>
+    <span class="for-screen-reader">Маркированный список</span>
   <% end %>
 
-  <%= house_toolbar_button "numberList" do %>
+  <%= house_toolbar_button "numberList", title: "Нумерованный список" do %>
     <%= image_tag "text-numbers.svg", aria: { hidden: "true" }, size: "18", class: "colorize--black" %>
-    <span class="for-screen-reader">Text style: numbered list</span>
+    <span class="for-screen-reader">Нумерованный список</span>
   <% end %>
 
-  <%= house_toolbar_file_upload_button do %>
+  <%= house_toolbar_file_upload_button title: "Добавить изображение" do %>
     <%= image_tag "text-image.svg", aria: { hidden: "true" }, size: "18", class: "colorize--black" %>
-    <span class="for-screen-reader">Add image</span>
+    <span class="for-screen-reader">Добавить изображение</span>
   <% end %>
 <% end %>

@@ -1,13 +1,13 @@
 <%= leafable_edit_form(picture, id: "leafable-editor") do |form| %>
   <label class="input input--file input--picture unpad" data-controller="upload-preview">
-    <%= image_tag picture.image.attached? ? picture.large_image : "default-picture.webp", alt: "Picture",
+    <%= image_tag picture.image.attached? ? picture.large_image : "default-picture.webp", alt: "Изображение",
         data: { upload_preview_target: "image" } %>
     <%= form.file_field :image, class: "input", accept: "image/png, image/jpeg, image/jpg, image/webp", autofocus: true,
         data: { upload_preview_target: "input", action: "upload-preview#previewImage" } %>
   </label>
   <div class="flex align-center gap margin-block">
     <%= translation_button(:picture_caption) %>
-    <%= form.text_field :caption, class: "input", placeholder: "Picture caption" %>
+    <%= form.text_field :caption, class: "input", placeholder: "Подпись к изображению" %>
   </div>
-  <%= form.submit "Save", hidden: true, data: { upload_preview_target: "button" } %>
+  <%= form.submit "Сохранить", hidden: true, data: { upload_preview_target: "button" } %>
 <% end %>

@@ -5,10 +5,10 @@
     <div class="flex align-center gap">
       <% if Current.user != user %>
         <%= translation_button(:transfer_session) %>
-        <strong id="session_transfer_label" class="txt-align-start">Share to get them back into their account</strong>
+        <strong id="session_transfer_label" class="txt-align-start">Поделитесь ссылкой для восстановления доступа к аккаунту</strong>
       <% else %>
         <%= translation_button(:transfer_session_self) %>
-        <strong id="session_transfer_label" class="txt-align-start">Link to automatically log in on another device</strong>
+        <strong id="session_transfer_label" class="txt-align-start">Ссылка для автоматического входа на другом устройстве</strong>
       <% end %>
     </div>
     <span class="flex align-center gap margin-inline">
@@ -20,16 +20,16 @@
     <div data-controller="dialog" class="flex-inline">
       <%= tag.button class: "btn", data: { action: "dialog#open" } do %>
         <%= image_tag "qr-code.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-        <span class="for-screen-reader">Show auto-login QR code</span>
+        <span class="for-screen-reader">Показать QR-код для входа</span>
       <% end %>
 
       <dialog class="dialog panel shadow" data-dialog-target="dialog">
         <%= qr_code_image(url) %>
 
         <form method="dialog" class="flex justify-center">
-          <button class="btn panel__close" title="Close (esc)">
+          <button class="btn panel__close" title="Закрыть (Esc)">
             <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
-            <span class="for-screen-reader">Close (esc)</span>
+            <span class="for-screen-reader">Закрыть (Esc)</span>
           </button>
         </form>
       </dialog>
@@ -37,12 +37,12 @@
 
     <%= button_to_copy_to_clipboard(url) do %>
       <%= image_tag "copy-paste.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-      <span class="for-screen-reader">Copy auto-login link</span>
+      <span class="for-screen-reader">Скопировать ссылку для входа</span>
     <% end %>
 
-    <%= web_share_button(url, "Your sign-in link", "This is your own private sign-in URL, DO NOT SHARE IT. Use it to sign-in on another device or if you get locked out.") do %>
+    <%= web_share_button(url, "Ваша ссылка для входа", "Это ваша личная ссылка для входа. НИКОМУ ЕЁ НЕ ПЕРЕДАВАЙТЕ. Используйте её для входа на другом устройстве или при потере доступа.") do %>
       <%= image_tag "share.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-      <span class="for-screen-reader">Share auto-login link</span>
+      <span class="for-screen-reader">Поделиться ссылкой для входа</span>
     <% end %>
   </div>
 </div>

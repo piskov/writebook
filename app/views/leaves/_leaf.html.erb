@@ -2,7 +2,7 @@
   <%= leaf_item_tag(leaf) do %>
     <span class="btn btn--link arrangement__handle txt-small">
       <%= image_tag "handle.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Move <%= leaf.title %></span>
+      <span class="for-screen-reader">Переместить <%= leaf.title %></span>
     </span>
 
     <%= render "leaves/delete", leaf: leaf %>
@@ -10,15 +10,15 @@
     <div class="toc__thumbnail <%= "toc__thumbnail--dark" if leaf.section&.theme == "dark" %>">
       <% if leaf.book.editable? %>
         <%= link_to edit_leafable_path(leaf), class: "toc__link hide_from_reading_mode", data: { turbo_frame: "_top" } do %>
-          <span class="for-screen-reader">Edit <%= leaf.title %></span>
+          <span class="for-screen-reader">Редактировать <%= leaf.title %></span>
         <% end %>
 
         <%= link_to leafable_slug_path(leaf), class: "toc__link hide_from_edit_mode", data: { turbo_frame: "_top" } do %>
-          <span class="for-screen-reader">Open <%= leaf.title %></span>
+          <span class="for-screen-reader">Открыть <%= leaf.title %></span>
         <% end %>
       <% else %>
         <%= link_to leafable_slug_path(leaf), class: "toc__link", data: { turbo_frame: "_top" } do %>
-          <span class="for-screen-reader">Open <%= leaf.title %></span>
+          <span class="for-screen-reader">Открыть <%= leaf.title %></span>
         <% end %>
       <% end %>
 

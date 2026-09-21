@@ -7,7 +7,7 @@ class PagesController < LeafablesController
     end
 
     def default_leaf_params
-      { title: "Untitled" }
+      { title: "Без названия" }
     end
 
     def new_leafable

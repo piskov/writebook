@@ -1,7 +1,7 @@
 <%= leaf_item_tag(leaf) do %>
   <span class="btn btn--link arrangement__handle txt-small">
     <%= image_tag "handle.svg", aria: { hidden: true }, size: 24 %>
-    <span class="for-screen-reader">Move <%= leaf.title %></span>
+    <span class="for-screen-reader">Переместить <%= leaf.title %></span>
   </span>
 
   <%= link_to leafable_path(leaf), class: "toc__thumbnail", data: { turbo_frame: "_top" } do %>
@@ -18,12 +18,12 @@
     <span class="flex align-center gap-half">
       <button type="submit" class="btn txt-small btn--positive" form="<%= dom_id(leaf, "form") %>">
         <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">Save</span>
+        <span class="for-screen-reader">Сохранить</span>
       </button>
 
       <%= button_to leafable_path(leaf), method: :delete, class: "btn btn--negative txt-small" do %>
         <%= image_tag "trash.svg", aria: { hidden: true }, size: 24 %>
-        <span class="for-screen-reader">Delete this page</span>
+        <span class="for-screen-reader">Удалить эту страницу</span>
       <% end %>
     </span>
   </div>

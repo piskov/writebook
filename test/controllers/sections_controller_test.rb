@@ -10,7 +10,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     new_section = Section.last
-    assert_equal "Section", new_section.title
+    assert_equal "Раздел", new_section.title
     assert_equal books(:handbook), new_section.leaf.book
   end
 

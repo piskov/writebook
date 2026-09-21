@@ -74,7 +74,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :success
 
-    assert_equal "Untitled", Page.last.title
+    assert_equal "Без названия", Page.last.title
   end
 
   test "create at a specific position" do

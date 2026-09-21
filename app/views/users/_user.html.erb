@@ -4,15 +4,15 @@
 
   <%= form_with model: user, url: user_path(user), data: { controller: "form" }, method: :patch do | form | %>
     <label class="btn btn--small flex-item-no-shrink" for="<%= dom_id(user, :role) %>">
-      <span class="for-screen-reader"><%= user.name %>'s role: <%= user.administrator? ? "Administrator" : "Member" %></span>
+      <span class="for-screen-reader"><%= user.name %>, роль: <%= user.administrator? ? "Администратор" : "Участник" %></span>
       <%= image_tag "crown.svg", size: 24, aria: { hidden: "true" } %>
       <%= form.check_box :role, { data: { action: "form#submit" }, hidden: true, id: dom_id(user, :role), disabled: ("disabled" if user.current? || !Current.user.can_administer?) }, "administrator", "member" %>
     </label>
   <% end %>
 
   <%= button_to user_path(user), method: :delete, class: "btn btn--small btn--negative flex-item-no-shrink", disabled: ("disabled" if user.current? || !Current.user.can_administer?), data: {
-        turbo_confirm: "Are you sure you want to permanently remove this person from the account? This can’t be undone."} do %>
+        turbo_confirm: "Удалить этого участника из аккаунта навсегда? Это действие нельзя отменить."} do %>
     <%= image_tag "minus.svg", aria: { hidden: true }, size: 24 %>
-    <span class="for-screen-reader">Remove <%= user.name %> from the account</span>
+    <span class="for-screen-reader">Удалить <%= user.name %> из аккаунта</span>
   <% end %>
 </div>

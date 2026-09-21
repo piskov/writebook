@@ -1,15 +1,15 @@
-<% content_for(:title) { "New section page" } %>
+<% content_for(:title) { "Новый раздел" } %>
 
 <% content_for :header do %>
   <nav>
     <%= link_to @book, class: "btn flex-item-justify-start" do %>
       <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Cancel</span>
+      <span class="for-screen-reader">Отмена</span>
     <% end %>
 
     <button type="submit" form="leafable-editor", class="btn flex-item-justify-end">
       <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
-      <span class="for-screen-reader">Save</span>
+      <span class="for-screen-reader">Сохранить</span>
     </button>
   </nav>
 <% end %>

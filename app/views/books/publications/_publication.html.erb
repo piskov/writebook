@@ -6,7 +6,7 @@
           <label class="switch txt-medium">
             <%= form.check_box :published, checked: book.published?, class: "switch__input" %>
             <span class="switch__btn round"></span>
-            <span class="for-screen-reader">Publish this book</span>
+            <span class="for-screen-reader">Опубликовать книгу</span>
           </label>
         <% end %>
       <%= image_tag "world.svg", aria: { hidden: true }, size: 36, class: "colorize--black" %>
@@ -18,7 +18,7 @@
       <% public_url = book_slug_url(book) %>
 
       <label class="flex flex-column gap full-width txt-align-center">
-        <strong id="invite_label" class="invite-label for-screen-reader">Public link to this book</strong>
+        <strong id="invite_label" class="invite-label for-screen-reader">Публичная ссылка на книгу</strong>
         <input type="text" class="input fill-white" id="invite_url" value="<%= public_url %>" aria-labelledby="invite_label" readonly>
       </label>
 
@@ -26,16 +26,16 @@
         <div data-controller="dialog" class="flex-inline">
           <%= tag.button class: "btn", data: { action: "dialog#open" } do %>
             <%= image_tag "qr-code.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-            <span class="for-screen-reader">Show public link QR code</span>
+            <span class="for-screen-reader">Показать QR-код публичной ссылки</span>
           <% end %>
 
           <dialog class="dialog panel shadow" data-dialog-target="dialog">
             <%= qr_code_image(public_url) %>
 
             <form method="dialog" class="flex justify-center">
-              <button class="btn panel__close" title="Close (esc)">
+              <button class="btn panel__close" title="Закрыть (Esc)">
                 <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
-                <span class="for-screen-reader">Close</span>
+                <span class="for-screen-reader">Закрыть</span>
               </button>
             </form>
           </dialog>
@@ -43,18 +43,18 @@
 
         <%= button_to_copy_to_clipboard(public_url) do %>
           <%= image_tag "copy-paste.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-          <span class="for-screen-reader">Copy public link</span>
+          <span class="for-screen-reader">Скопировать публичную ссылку</span>
         <% end %>
 
-        <%= web_share_button(public_url, "Link to join Writebook", "Hit this link to join me in Writebook and start writing.") do %>
+        <%= web_share_button(public_url, "Приглашение в Writebook", "Перейдите по ссылке, чтобы присоединиться ко мне в Writebook и начать писать.") do %>
           <%= image_tag "share.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-          <span class="for-screen-reader">Share public link</span>
+          <span class="for-screen-reader">Поделиться публичной ссылкой</span>
         <% end %>
 
         <% if book.editable? %>
           <%= link_to edit_book_publication_path(book), class: "btn" do %>
             <%= image_tag "pencil.svg", aria: { hidden: "true" }, size: 24, class: "colorize--black" %>
-            <span class="for-screen-reader">Edit link URL</span>
+            <span class="for-screen-reader">Изменить адрес ссылки</span>
           <% end %>
         <% end %>
       </div>
