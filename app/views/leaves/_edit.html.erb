@@ -28,11 +28,5 @@
     </span>
   </div>
 
-  <small class="toc__wordcount">
-    <% if leaf.page? %>
-      <%= word_count(leaf.leafable.body.content) %>
-    <% end %>
-  </small>
-
   <%= yield if block_given? %>
 <% end %>
