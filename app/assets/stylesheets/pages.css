@@ -100,6 +100,23 @@
   text-align: start;
 }
 
+.page--page :is(h1, h2, h3, h4, h5, h6) {
+  margin-block: 1.3em 0.65em;
+}
+
+.page--page p:has(+ :is(ul, ol)) {
+  margin-block-end: 0;
+}
+
+.page--page p + :is(ul, ol),
+.page--page p + :is(ul, ol) > li:first-child > p:first-child {
+  margin-block-start: 0;
+}
+
+.page--page p:has(> img:only-child, > a:only-child > img:only-child) {
+  margin-block-end: 1.3lh;
+}
+
 :is(.page--section, .page--picture) {
   place-self: center;
 }

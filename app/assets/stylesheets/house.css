@@ -74,6 +74,11 @@
   }
 }
 
+.house-md-content :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+  display: inline-block;
+  margin-block: 1.3em 0;
+}
+
 /* Uploads */
 :where(house-md-upload) {
   border-radius: var(--house-border-radius);

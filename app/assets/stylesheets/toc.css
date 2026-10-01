@@ -50,6 +50,10 @@
     display: inline-flex;
   }
 
+  .toc__container:where(:has(#toc-list:checked)) & {
+    align-self: flex-end;
+  }
+
   .toc__container:where(:has(#toc-grid:checked)) & {
     inset: calc(var(--icon-size) * -0.33) 0 auto calc(var(--icon-size) * -0.5);
     position: absolute;
@@ -103,7 +107,7 @@
   flex-direction: column;
   font-size: var(--font-medium-responsive);
   gap: var(--inline-space);
-  line-height: 1.2;
+  line-height: 1.4;
   text-decoration: none;
 
   .leaf--section &,
@@ -116,7 +120,6 @@
     flex-direction: row;
     flex-grow: 1;
     font-size: inherit;
-    white-space: nowrap;
 
     &:is(a) {
       @media (hover: hover) {
@@ -132,13 +135,6 @@
       min-inline-size: 20ch;
     }
 
-    &::after {
-      border-block-end: 1px dotted var(--title-border-color);
-      content: "";
-      flex-grow: 1;
-      margin-block-end: 0.25em;
-    }
-
     .toc__leaf--section & {
       font-weight: 750;
     }
@@ -146,6 +142,29 @@
 
   .toc__leaf--last-read & {
     --title-border-color: var(--color-marker);
+  }
+}
+
+.sidebar__content .toc__title:where(a),
+.toc__container:where(:has(#toc-list:checked)) .toc__title:where(a) {
+  display: block;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+
+  > span {
+    overflow: visible;
+    white-space: normal;
+  }
+
+  &::after {
+    border-block-end: 1px dotted var(--title-border-color);
+    content: "";
+    display: inline-block;
+    inline-size: 100%;
+    margin-block-end: 0.25em;
+    /* Keep the leader on the final text line; the link clips it at the edge. */
+    margin-inline-end: -100%;
+    transform: translateX(0.5ch);
   }
 }
 
